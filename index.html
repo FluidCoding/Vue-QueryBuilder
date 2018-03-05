@@ -5,12 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vu</title>
+    <style>
+        #sqlRaw{
+            width: 75%; 
+            height: 8em;
+        }
+        #sqlOut{
+            display: block;
+            width: 75%;
+        }
+        #sqlOutWindow{
+            width: 100%;
+            height: 10em;
+        }
+    </style>
 </head>
 <body>
-    <div id="app-6">
-        <p>{{ message }}</p>
-        <input v-model="message">
-    </div>
+    <form action="" id="md-form">
+        SQL Variable Name: 
+        <input type="text" v-model="sqlVarName">
+
+        <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw' placeholder='Enter variables like varName'></textarea>
+
+        <div id='sqlOut'>
+            <textarea disabled='true' id='sqlOutWindow'>{{sqlText}}</textarea>                
+        </div>
+    </form>
 </body>
 <script src='./vue.js'></script>
 <script src='./main.js'></script>
