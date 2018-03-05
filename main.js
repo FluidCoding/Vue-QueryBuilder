@@ -13,31 +13,19 @@ var appSQLTranslate = new Vue({
         // let sql = this.sqlRaw;
         let sql = '';
         sql = this.sqlVarName + ' = \"';
-        
-        // sql = this.sqlVarName + ' = \"' + this.sqlRaw;
-        // sql = sql.replace(  ,   )
-
         // Replace Variables 
           // string type
           // sql = sql.replace(/\{'(\w+)\}'/gm, "\" & $1 \" & \"'"  );
-
           // sql = sql.replace(/\{(\w+)\}/g, "\" & $1 "  );
 
         const lines = this.sqlRaw.split(/\n/);
         // console.log(lines);
         lines.forEach( (s,i) => {
           if(i>0) sql = sql + '"'+lnEnd+'\n'+this.sqlVarName+' = '+ this.sqlVarName +' & \"';
-          sql = sql + s.replace(/\{(\w+)\}/g, "\" & $1 & \""  ) + "\"";
-          
+          sql = sql + s.replace(/\{(\w+)\}/g, "\" & $1 & \""  );
+          console.log(s,i)
         })
-
-        // sql = sql.replace(/\{(\w+)\}/g, function( match, p1,p2) {
-          
-        //   return p1 + '';
-
-        // } );
-
-        // sql = sql.replace(/\n/g, '"'+lnEnd+'\n'+this.sqlVarName+' = '+ this.sqlVarName +' & \"'  )
+        sql = sql + '"'+lnEnd;
         this.sqlText = sql;
         
         console.log('transforming sql...', this.sqlRaw)
