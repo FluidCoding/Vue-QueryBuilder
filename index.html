@@ -43,7 +43,7 @@
         <label for='sqlVarName' >SQL Variable Name: </label>
         <input type="text" v-model="sqlVarName" class="form-control" name='sqlVarName' id='sqlVarName'>
 
-        <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw'  class="form-control" placeholder='Enter variables like varName'></textarea>
+        <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw'  class="form-control" placeholder="Enter variables like {VarName} or '{VarName}'"></textarea>
 
         <div id='sqlOut'>
         <textarea readonly='true' id='sqlOutWindow'  data-content="And here's some amazing content. It's very engaging. Right?">{{sqlText}}</textarea>   
