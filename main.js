@@ -23,24 +23,9 @@ var appSQLTranslate = new Vue({
         lines.forEach( (s,i) => {
           if(i>0) sql = sql + '"'+lnEnd+'\n'+this.sqlVarName+' = '+ this.sqlVarName +' & \"';
           sql = sql + s.replace(/\{(\w+)\}/g, "\" & $1 & \""  );
-          console.log(s,i)
         })
         sql = sql + '"'+lnEnd;
         this.sqlText = sql;
-        
-        console.log('transforming sql...', this.sqlRaw)
       }
     }
   })
-
-  /*
-
-
-select * from users 
-where instit_id = {I_ID}
-and role = '{U_ROLE}'
-
-
-  select * from users 
-where instit_id = {I_ID}
-*/
