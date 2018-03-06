@@ -9,9 +9,7 @@
     <title>Vu</title>
     <style>
         #sqlRaw{
-            width: 75%; 
-            height: 8em;
-            display:block;
+            height: 15em;
         }
         #sqlOut{
             display: block;
@@ -30,6 +28,15 @@
             right: 25px;
             top: 0;
         }
+        #sqlOutSyntax{
+            height: 15em;
+            overflow: scroll;
+            min-width: 25em;
+            /* background-color: lightgray; */
+        }
+        #sqlOutSyntaxHidden{
+            display: none;
+        }
         #sqlVarName{
             width: 15em;
         }
@@ -39,24 +46,40 @@
     <script src="./fontawesome-all.min.js"></script>    
 </head>
 <body>
+    <div class="container">
+
     <form action="" id="md-form">
-        <label for='sqlVarName' >SQL Variable Name: </label>
-        <input type="text" v-model="sqlVarName" class="form-control" name='sqlVarName' id='sqlVarName'>
+        <div class="form-row">  
+            <label for='sqlVarName' >SQL Variable Name: </label>
+            <input type="text" v-model="sqlVarName" class="form-control" name='sqlVarName' id='sqlVarName'>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw'  class="form-control" placeholder="Enter variables like {VarName} or '{VarName}'"></textarea>
+            </div>
+            <div class="col-md-4 mb-3">
+                <pre><code id='sqlOutSyntax' class='sql' v-html="sqlSyntax"></code></pre>
+            </div>
+        </div>
 
-        <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw'  class="form-control" placeholder="Enter variables like {VarName} or '{VarName}'"></textarea>
-
-        <div id='sqlOut'>
-        <textarea readonly='true' id='sqlOutWindow'  data-content="And here's some amazing content. It's very engaging. Right?">{{sqlText}}</textarea>   
-        <span id='copySqlOut' data-trigger="hover"  data-toggle="popover"><i class="far fa-clipboard"></i></span>
-    </div>
+        <div id='sqlOut' class='form-row'>
+            <textarea readonly='true' id='sqlOutWindow'  data-content="And here's some amazing content. It's very engaging. Right?">{{sqlText}}</textarea>   
+            <span id='copySqlOut' data-trigger="hover"  data-toggle="popover"><i class="far fa-clipboard"></i></span>
+            <pre><code readonly='true' class='sql' id='sqlOutSyntaxHidden'>{{sqlRaw}}</code></pre>
+        </div>
     </form>
+    </div>
 </body>
 <script src='./vue.js'></script>
 <script src="http://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+<link rel="stylesheet" href="./default.css">
+<link rel="stylesheet" href="./styles/dracula.css">
+<script src="./highlight.sql.js"></script>
 <script src='./main.js'></script>
+
 <script>
     var __deselect = true;
     function copyToClipboard(){
@@ -66,6 +89,8 @@
         if(__deselect) window.getSelection().removeAllRanges();
     }
 $('#copySqlOut').on('click', copyToClipboard);
+// hljs.initHighlightingOnLoad();
+
 // $('#copySqlOut').popover('toggle');
 </script>
 </html>

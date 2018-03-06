@@ -4,7 +4,8 @@ var appSQLTranslate = new Vue({
       sqlVarName: 'SQLStr',
       preseveNewLine: true,
       sqlRaw: '',
-      sqlText: ''
+      sqlText: '',
+      sqlSyntax: ''
     },
     methods: {
       transformSQLStr: function(event){
@@ -26,6 +27,17 @@ var appSQLTranslate = new Vue({
         })
         sql = sql + '"'+lnEnd;
         this.sqlText = sql;
+        
+
+        $('#sqlOutSyntax').text(this.sqlRaw);
+
+        $('#sqlOutSyntax').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        // this.sqlSyntax = $('#sqlOutSyntax').html();
+        // $('#sqlOutSyntax2').html($('#sqlOutSyntax').html());
+
       }
     }
   })
