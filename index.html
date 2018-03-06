@@ -54,10 +54,10 @@
             <input type="text" v-model="sqlVarName" class="form-control" name='sqlVarName' id='sqlVarName'>
         </div>
         <div class="form-row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-5 mb-2">
                 <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw'  class="form-control" placeholder="Enter variables like {VarName} or '{VarName}'"></textarea>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-5 mb-2">
                 <pre><code id='sqlOutSyntax' class='sql' v-html="sqlSyntax"></code></pre>
             </div>
         </div>
@@ -76,7 +76,7 @@
 <script src="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
 <link rel="stylesheet" href="./default.css">
-<link rel="stylesheet" href="./styles/dracula.css">
+<link rel="stylesheet" href="./styles/agate.css">
 <script src="./highlight.sql.js"></script>
 <script src='./main.js'></script>
 
@@ -88,9 +88,6 @@
         var cpyresult = document.execCommand('copy');
         if(__deselect) window.getSelection().removeAllRanges();
     }
-$('#copySqlOut').on('click', copyToClipboard);
-// hljs.initHighlightingOnLoad();
-
-// $('#copySqlOut').popover('toggle');
+    $('#copySqlOut').on('click', copyToClipboard);
 </script>
 </html>
