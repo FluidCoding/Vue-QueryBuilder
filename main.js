@@ -2,7 +2,7 @@ var appSQLTranslate = new Vue({
     el: '#md-form',
     data: {
       sqlVarName: 'SQLStr',
-      preseveNewLine: true,
+      sqlNewLinesOn: true,
       sqlRaw: '',
       sqlText: '',
       sqlSyntax: ''
@@ -10,8 +10,7 @@ var appSQLTranslate = new Vue({
     methods: {
       transformSQLStr: function(event){
         //& vbCrLf
-        const lnEnd = (this.preseveNewLine?" & vbCrLf" : "");
-        // let sql = this.sqlRaw;
+        const lnEnd = (this.sqlNewLinesOn?" & vbCrLf" : "");
         let sql = '';
         sql = this.sqlVarName + ' = \"';
         // Replace Variables 
@@ -20,24 +19,19 @@ var appSQLTranslate = new Vue({
           // sql = sql.replace(/\{(\w+)\}/g, "\" & $1 "  );
 
         const lines = this.sqlRaw.split(/\n/);
-        // console.log(lines);
         lines.forEach( (s,i) => {
           if(i>0) sql = sql + '"'+lnEnd+'\n'+this.sqlVarName+' = '+ this.sqlVarName +' & \"';
           sql = sql + s.replace(/\{(\w+)\}/g, "\" & $1 & \""  );
         })
         sql = sql + '"'+lnEnd;
         this.sqlText = sql;
-        
 
         $('#sqlOutSyntax').text(this.sqlRaw);
-
         $('#sqlOutSyntax').each(function(i, block) {
           hljs.highlightBlock(block);
         });
-
         // this.sqlSyntax = $('#sqlOutSyntax').html();
         // $('#sqlOutSyntax2').html($('#sqlOutSyntax').html());
-
       }
     }
   })

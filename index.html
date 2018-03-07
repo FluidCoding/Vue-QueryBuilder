@@ -5,17 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    <script src="./fontawesome-all.min.js"></script>    
     <title>Vu</title>
     <style>
+        body{
+            background-color:honeydew;
+        }
+        .container{
+            border: 2px solid silver;
+            border-radius: 2px;
+        }
+        .container #md-form pre{ font-size: 100%;}
+        .form-row{ margin-top: 5px; }
         #sqlRaw{
             height: 15em;
         }
         #sqlOut{
-            display: block;
-            width: 75%;
+            margin: 0 auto;
+            width: 85%;
             position: relative;
-            float: left;
         }
         #sqlOutWindow{
             width: 100%;
@@ -32,7 +42,6 @@
             height: 15em;
             overflow: scroll;
             min-width: 25em;
-            /* background-color: lightgray; */
         }
         #sqlOutSyntaxHidden{
             display: none;
@@ -41,21 +50,24 @@
             width: 15em;
         }
     </style>
-    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
-    <script src="./fontawesome-all.min.js"></script>    
 </head>
 <body>
     <div class="container">
 
     <form action="" id="md-form">
         <div class="form-row">  
-            <label for='sqlVarName' >SQL Variable Name: </label>
-            <input type="text" v-model="sqlVarName" class="form-control" name='sqlVarName' id='sqlVarName'>
+            <div class="col-md-3 mb-2">
+                <label for='sqlVarName'>SQL Variable Name: </label>
+                <input type="text" v-model="sqlVarName" v-on:change='transformSQLStr' class="form-control" name='sqlVarName' id='sqlVarName'>
+            </div>
+            <div class="col-md-7 mb-2">
+                <label for='sqlNewLines' class='form-check-label'>Include Line Breaks</label>
+                <input type="checkbox" name="sqlNewLines" id="sqlNewLines" v-on:change='transformSQLStr' v-model="sqlNewLinesOn">
+            </div>
         </div>
         <div class="form-row">
             <div class="col-md-5 mb-2">
-                <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw'  class="form-control" placeholder="Enter variables like {VarName} or '{VarName}'"></textarea>
+                <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw' class="form-control" placeholder="Enter variables like {VarName} or '{VarName}'"></textarea>
             </div>
             <div class="col-md-5 mb-2">
                 <pre><code id='sqlOutSyntax' class='sql' v-html="sqlSyntax"></code></pre>
@@ -63,9 +75,11 @@
         </div>
 
         <div id='sqlOut' class='form-row'>
-            <textarea readonly='true' id='sqlOutWindow'  data-content="And here's some amazing content. It's very engaging. Right?">{{sqlText}}</textarea>   
-            <span id='copySqlOut' data-trigger="hover"  data-toggle="popover"><i class="far fa-clipboard"></i></span>
-            <pre><code readonly='true' class='sql' id='sqlOutSyntaxHidden'>{{sqlRaw}}</code></pre>
+            <div class="col-md-10 mb-2">
+                <textarea readonly='true' id='sqlOutWindow'  data-content="And here's some amazing content. It's very engaging. Right?">{{sqlText}}</textarea>   
+                <span id='copySqlOut' data-trigger="hover"  data-toggle="popover"><i class="far fa-clipboard"></i></span>
+                <pre><code readonly='true' class='sql' id='sqlOutSyntaxHidden'>{{sqlRaw}}</code></pre>
+            </div>
         </div>
     </form>
     </div>
