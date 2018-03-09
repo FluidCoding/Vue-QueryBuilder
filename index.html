@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
     <script src="./fontawesome-all.min.js"></script>    
-    <title>Vu</title>
+    <title>String Builder</title>
     <style>
         body{
             background-color:honeydew;
@@ -66,42 +67,51 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="col-md-5 mb-2">
+            <div class="col-md-6 mb-2">
                 <textarea v-on:keyUp='transformSQLStr' id='sqlRaw' v-model='sqlRaw' class="form-control" placeholder="Enter variables like {VarName} or '{VarName}'"></textarea>
             </div>
-            <div class="col-md-5 mb-2">
+            <div class="col-md-6 mb-2">
                 <pre><code id='sqlOutSyntax' class='sql' v-html="sqlSyntax"></code></pre>
             </div>
         </div>
 
         <div id='sqlOut' class='form-row'>
-            <div class="col-md-10 mb-2">
-                <textarea readonly='true' id='sqlOutWindow'  data-content="And here's some amazing content. It's very engaging. Right?">{{sqlText}}</textarea>   
+            <div class="col-md-11 mb-2">
+                <textarea readonly='true' id='sqlOutWindow'>{{sqlText}}</textarea>   
                 <span id='copySqlOut' data-trigger="hover"  data-toggle="popover"><i class="far fa-clipboard"></i></span>
                 <pre><code readonly='true' class='sql' id='sqlOutSyntaxHidden'>{{sqlRaw}}</code></pre>
             </div>
         </div>
     </form>
     </div>
-</body>
-<script src='./vue.js'></script>
-<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
-<link rel="stylesheet" href="./default.css">
-<link rel="stylesheet" href="./styles/agate.css">
-<script src="./highlight.sql.js"></script>
-<script src='./main.js'></script>
+    <script src='./vue.min.js'></script> <!-- PROD -->
+    <!-- <script src='./vue.js'></script> DEV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+    <link rel="stylesheet" href="./default.css">
+    <link rel="stylesheet" href="./styles/agate.css">
+    <script src="./highlight.sql.js"></script>
+    <script src='./main.js'></script>
 
-<script>
-    var __deselect = true;
-    function copyToClipboard(){
-        var cell = document.getElementById('sqlOutWindow');
-        cell.select();
-        var cpyresult = document.execCommand('copy');
-        if(__deselect) window.getSelection().removeAllRanges();
-    }
-    $('#copySqlOut').on('click', copyToClipboard);
-</script>
+    <script>
+        // Polyfill forEach
+        if (window.NodeList && !NodeList.prototype.forEach) {
+            NodeList.prototype.forEach = function (callback, thisArg) {
+                thisArg = thisArg || window;
+                for (var i = 0; i < this.length; i++) {
+                    callback.call(thisArg, this[i], i, this);
+                }
+            };
+        }
+        var __deselect = true;
+        function copyToClipboard(){
+            var cell = document.getElementById('sqlOutWindow');
+            cell.select();
+            var cpyresult = document.execCommand('copy');
+            if(__deselect) window.getSelection().removeAllRanges();
+        }
+        $('#copySqlOut').on('click', copyToClipboard);
+    </script>
+</body>
 </html>
