@@ -3,6 +3,7 @@ const appSQLTranslate = new Vue({
     data: {
       sqlVarName: 'SQLStr',
       sqlNewLinesOn: true,
+      sqlSingleLineOn: false,
       sqlRaw: '',
       sqlText: '',
       sqlSyntax: ''
@@ -14,7 +15,8 @@ const appSQLTranslate = new Vue({
         sql = this.sqlVarName + ' = \"';
         const lines = this.sqlRaw.split(/\n/);
         lines.forEach( (s,i) => {
-          if(i>0) sql = sql + '"'+lnEnd+'\n'+this.sqlVarName+' = '+ this.sqlVarName +' & \"';
+          if(i>0 && !this.sqlSingleLineOn) sql = sql + '"'+lnEnd+'\n'+this.sqlVarName+' = '+ this.sqlVarName +' & \"';
+          if(this.sqlSingleLineOn) s = " " + s;
           sql = sql + s.replace(/\{([^{}]+)\}/g, "\" & $1 & \""  );
         })
         sql = sql + '"'+lnEnd;

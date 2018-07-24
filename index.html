@@ -64,6 +64,9 @@
             <div class="col-md-7 mb-2">
                 <label for='sqlNewLines' class='form-check-label'>Include Line Breaks</label>
                 <input type="checkbox" name="sqlNewLines" id="sqlNewLines" v-on:change='transformSQLStr' v-model="sqlNewLinesOn">
+                
+                <label for='sqlSingleLine' class='form-check-label'>Output Single Line</label>
+                <input type="checkbox" name="sqlSingleLine" id="sqlSingleLine" v-on:change='transformSQLStr' v-model="sqlSingleLineOn">
             </div>
         </div>
         <div class="form-row">
