@@ -1,4 +1,4 @@
-var appSQLTranslate = new Vue({
+const appSQLTranslate = new Vue({
     el: '#md-form',
     data: {
       sqlVarName: 'SQLStr',
@@ -8,8 +8,8 @@ var appSQLTranslate = new Vue({
       sqlSyntax: ''
     },
     methods: {
-      transformSQLStr: function(event){
-        const lnEnd = (this.sqlNewLinesOn?" & vbCrLf" : "");
+      transformSQLStr(){
+        const lnEnd = (this.sqlNewLinesOn ? " & vbCrLf" : "");
         let sql = '';
         sql = this.sqlVarName + ' = \"';
         const lines = this.sqlRaw.split(/\n/);
@@ -24,4 +24,4 @@ var appSQLTranslate = new Vue({
         $('#sqlOutSyntax').each( (i, block) => hljs.highlightBlock(block));
       }
     }
-  })
+  });
