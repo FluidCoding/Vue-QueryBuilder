@@ -15,8 +15,10 @@ const appSQLTranslate = new Vue({
         sql = this.sqlVarName + ' = \"';
         const lines = this.sqlRaw.split(/\n/);
         lines.forEach( (s,i) => {
-          if(i>0 && !this.sqlSingleLineOn) sql = sql + '"'+lnEnd+'\n'+this.sqlVarName+' = '+ this.sqlVarName +' & \"';
-          if(this.sqlSingleLineOn) s = " " + s;
+          if( i> 0 ){
+            if (this.sqlSingleLineOn) s = " " + s;
+            else sql = sql + '"' + lnEnd + '\n' + this.sqlVarName + ' = ' + this.sqlVarName + ' & \"';
+          }
           sql = sql + s.replace(/\{([^{}]+)\}/g, "\" & $1 & \""  );
         })
         sql = sql + '"'+lnEnd;
