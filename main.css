@@ -1,0 +1,99 @@
+html,
+body {
+  background-color: honeydew;
+}
+
+.container {
+  border: 2px solid silver;
+  border-radius: 2px;
+}
+
+.container #md-form pre {
+  font-size: 100%;
+}
+
+.form-row {
+  margin-top: 5px;
+}
+
+#sqlRaw {
+  height: 15em;
+}
+
+#sqlOut {
+  margin: 0 auto;
+  width: 85%;
+  position: relative;
+}
+
+#sqlOutWindow {
+  width: 100%;
+  height: 10em;
+  overflow: scroll;
+  background-color: lightgray;
+}
+
+#copySqlOut {
+  position: absolute;
+  right: 25px;
+  top: 0;
+}
+
+#sqlOutSyntax {
+  height: 15em;
+  overflow: scroll;
+  min-width: 25em;
+}
+
+#sqlOutSyntaxHidden {
+  display: none;
+}
+
+#sqlVarName {
+  width: 15em;
+}
+
+#themeSwitcher {
+  width: 60px;
+  height: 32px;
+  border: 1px solid white;
+  border-radius: 12px;
+  background-color: #ababab;
+}
+
+#themeSwitcher span#toggle {
+  width: 30px;
+  height: 32px;
+  border: 1px solid white;
+  border-radius: 12px;
+  display: block;
+  background-color: rgb(122, 121, 121);
+}
+
+#themeSwitcher span#toggle:hover {
+  background-color: rgb(122, 121, 121);
+  border: 1px solid gold;
+}
+
+#themeSwitcher span#toggle.on {
+  background-color: inherit;
+  margin-left: 29px;
+}
+
+/* Dark Theme Overrides */
+
+html.dark,
+.dark body {
+  background-color: rgb(14, 14, 14);
+  color: cornsilk;
+}
+
+.dark #sqlRaw {
+  background-color: #111;
+  color: gold;
+}
+
+.dark #themeSwitcher {
+  border: 1px solid white;
+  background-color: black;
+}
