@@ -52,7 +52,8 @@ const appSQLTranslate = new Vue({
         }
         sql += s;
       });
-      sql = sql + "" + lnEnd;
+      sql = sql + '"' + lnEnd;
+      if (params !== "") sql += params;
       this.sqlText = sql;
 
       $("#sqlOutSyntax").text(this.sqlRaw);
