@@ -46,8 +46,14 @@
               v-on:change="callTransform"
               v-model="sqlSingleLineOn"
             />
-            <label for="sqlParamQueryOn" class="form-check-label">Parse Query Parameters</label>
-            <input type="checkbox" name="sqlParamQueryOn" id="sqlParamQueryOn" v-model="sqlParamQueryOn" />
+            <label for="sqlParamQueryOn" title="Parameterized Query Use: ?:{VarName}" class="form-check-label">Parse Query Parameters</label>
+            <input
+              type="checkbox" 
+              name="sqlParamQueryOn" 
+              id="sqlParamQueryOn"
+              v-model="sqlParamQueryOn" 
+              v-on:change="callTransform"
+            />
           </div>
         </div>
         <div class="form-row">
